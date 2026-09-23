@@ -1,0 +1,230 @@
+<!-- Mirrors the live build's footer code. Keep this file and the Webflow page
+     footer custom code in sync (Home page -> Settings -> Custom code). -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ============================================================
+   04 Feature Stack - vertical card stack
+   Each card pins at 10% from the top and shrinks to 0.9 while the
+   next card travels up to the same line, so the cards stack and
+   recede. pinSpacing:false means the pin adds no extra scroll
+   length - the section's own height is the scroll distance, which
+   is why its measured height is unchanged by this.
+   The last card is skipped: it has nothing to pin against.
+   ============================================================ */
+(function () {
+  function initFeatureStack() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    var cards = Array.prototype.slice.call(
+      document.querySelectorAll('.feature-stack_card')
+    );
+    if (cards.length < 2) return;
+
+    cards.forEach(function (card, i) {
+      var next = cards[i + 1];
+      if (!next) return;
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top 10%',
+        endTrigger: next,
+        end: 'top 10%',
+        pin: true,
+        pinSpacing: false
+      });
+
+      gsap.to(card, {
+        scale: 0.9,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 10%',
+          endTrigger: next,
+          end: 'top 10%',
+          scrub: 1
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFeatureStack);
+  } else {
+    initFeatureStack();
+  }
+  window.addEventListener('load', function () {
+    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+  });
+})();
+
+/* ============================================================
+   07 Use Cases - click a collapsed card to expand it
+   Every card has the same shape - [label, media, text], media is
+   [backdrop, illustration], text is [headline, bodygroup] - so the
+   state swap can address children by position. All the motion is
+   CSS transitions on the class pairs below; nothing animates here.
+
+   The case-study bars are paired with the cards BY INDEX, not by a
+   data attribute: the Webflow API refused attribute writes on the
+   two bars added for Marketing and Customer Success. So the bars
+   must stay in the same order as the cards (marketing, sales,
+   customer success). Reordering either list in the Designer breaks
+   the pairing - see site/SITE_MAP.md.
+   ============================================================ */
+(function () {
+  var CARD      = ['use-cases_card',              'use-cases_card-expanded'];
+  var MEDIA     = ['use-cases_collapsed-media',   'use-cases_media'];
+  var BACKDROP  = ['use-cases_backdrop-hidden',   'use-cases_media-backdrop'];
+  var ART       = ['use-cases_collapsed-image',   'use-cases_media-image'];
+  var HEADLINE  = ['use-cases_collapsed-heading', 'use-cases_card-heading'];
+  var BODYGROUP = ['use-cases_body-group-hidden', 'use-cases_body-group'];
+  var CASESTUDY = ['use-cases_case-study-hidden', 'use-cases_case-study'];
+
+  function swap(el, pair, expand) {
+    if (!el) return;
+    el.classList.remove(pair[expand ? 0 : 1]);
+    el.classList.add(pair[expand ? 1 : 0]);
+  }
+
+  function initUseCases() {
+    var cards = Array.prototype.slice.call(
+      document.querySelectorAll('[data-usecase-card]')
+    );
+    if (!cards.length) return;
+
+    var bars = Array.prototype.slice.call(
+      document.querySelectorAll('.use-cases_case-study, .use-cases_case-study-hidden')
+    );
+
+    function setState(card, expand) {
+      var media = card.children[1];
+      var text  = card.children[2];
+      if (!media || !text) return;
+
+      card.setAttribute('data-state', expand ? 'expanded' : 'collapsed');
+      card.setAttribute('aria-expanded', expand ? 'true' : 'false');
+      swap(card,             CARD,      expand);
+      swap(media,            MEDIA,     expand);
+      swap(media.children[0], BACKDROP, expand);
+      swap(media.children[1], ART,      expand);
+      swap(text.children[0],  HEADLINE, expand);
+      swap(text.children[1],  BODYGROUP, expand);
+    }
+
+    function expandCard(target) {
+      var index = cards.indexOf(target);
+      cards.forEach(function (card) { setState(card, card === target); });
+      bars.forEach(function (bar, i) { swap(bar, CASESTUDY, i === index); });
+    }
+
+    cards.forEach(function (card) {
+      card.addEventListener('click', function () { expandCard(card); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          expandCard(card);
+        }
+      });
+      card.setAttribute(
+        'aria-expanded',
+        card.getAttribute('data-state') === 'expanded' ? 'true' : 'false'
+      );
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initUseCases);
+  } else {
+    initUseCases();
+  }
+})();
+
+/* ============================================================
+   03 Feature - illustration crossfade
+   Each card holds three stacked illustrations, one per accordion
+   item, exactly as live does. Opening item N fades in image N and
+   fades the rest out; the fade itself is the CSS transition on
+   the two classes, this only swaps them.
+
+   The accordion is native <details name="..."> so the browser
+   already enforces one-open-at-a-time per card. We only listen.
+
+   Webflow will not emit a valueless `open` attribute, so the
+   first item of each card carries open="open" instead. If that
+   ever stops surviving a publish, this falls back to opening the
+   first item itself so a card is never left with no image.
+   ============================================================ */
+(function () {
+  var VISIBLE = 'feature_card-image';
+  var HIDDEN  = 'feature_card-image-hidden';
+
+  function initFeatureCrossfade() {
+    var cards = Array.prototype.slice.call(
+      document.querySelectorAll('.feature_card')
+    );
+    if (!cards.length) return;
+
+    cards.forEach(function (card) {
+      var items  = Array.prototype.slice.call(card.querySelectorAll('.feature_item'));
+      var media  = card.querySelector('.feature_card-media');
+      if (!items.length || !media) return;
+      var images = Array.prototype.slice.call(media.children);
+      if (images.length < items.length) return;
+
+      function show(index) {
+        images.forEach(function (img, i) {
+          img.classList.remove(i === index ? HIDDEN : VISIBLE);
+          img.classList.add(i === index ? VISIBLE : HIDDEN);
+        });
+      }
+
+      items.forEach(function (item, i) {
+        item.addEventListener('toggle', function () {
+          if (item.open) show(i);
+        });
+      });
+
+      var openIndex = items.findIndex(function (it) { return it.open; });
+      if (openIndex < 0) {
+        items[0].open = true;
+        openIndex = 0;
+      }
+      show(openIndex);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFeatureCrossfade);
+  } else {
+    initFeatureCrossfade();
+  }
+})();
+
+/* ============================================================
+   01 Hero - email placeholder
+   WORKAROUND, not a design decision. Live's field reads
+   "Enter your email"; ours shipped blank. The Webflow Data API
+   exposes no placeholder setting on a FormTextInput
+   ("Setting \"placeholder\" is not applicable to this element")
+   and refuses it as a custom attribute ("reserved attribute
+   name"), so it is applied here instead.
+
+   Set it properly in the Designer (select the field -> Settings
+   -> Placeholder) and delete this block.
+   ============================================================ */
+(function () {
+  function setPlaceholder() {
+    var input = document.querySelector('.hero_form-input');
+    if (input && !input.getAttribute('placeholder')) {
+      input.setAttribute('placeholder', 'Enter your email');
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setPlaceholder);
+  } else {
+    setPlaceholder();
+  }
+})();
+</script>

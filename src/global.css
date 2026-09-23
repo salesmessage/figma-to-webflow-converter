@@ -1,0 +1,483 @@
+/* ==========================================================================
+   GLOBAL STYLES — source of truth for the Webflow site
+   --------------------------------------------------------------------------
+   This file's contents go inside an HTML Embed, wrapped in <style> tags,
+   inside a Webflow Component named "Global Styles" placed as the first child
+   of <body> on every page. See .claude/rules/phase-2-webflow-foundation.md.
+
+   Keep this file and the embed in sync. If someone edits the embed in the
+   Designer, mirror the change back here — otherwise the next build overwrites
+   their fix.
+
+   Why an embed and not native Webflow variables: Webflow cannot express a
+   clamp()-driven fluid body font-size. That fluid font-size is what makes
+   every em value on the site scale with the viewport. Without this, responsive
+   breaks.
+
+   The embed sits in <body>, so it loads after Webflow's own stylesheets and
+   wins on equal specificity. That's what lets `body { font-size }` below
+   override Webflow's default.
+   ========================================================================== */
+
+/* ==========================================================================
+   Web fonts
+   Lora (display) + Inter (body), the two families the Figma file uses.
+
+   These are NOT loaded here. Both are installed on the site as Webflow
+   custom fonts (self-hosted woff2, latin subset, font-display: swap), so
+   Webflow emits its own @font-face rules and the families appear by name in
+   the Designer's font dropdown and in the style panel.
+
+   Faces installed: Inter 400 / 500 / 600, Lora 600 / 700 — exactly the
+   weights the design uses. Static cuts, not variable, so every weight is a
+   real designed face with no synthetic bolding.
+
+   The previous @import from fonts.googleapis.com was removed when they were
+   installed; leaving it in would fetch both families a second time from
+   Google on every page load. If a weight is ever added to the design, upload
+   the face to the site rather than reinstating the @import.
+   ========================================================================== */
+
+/* ==========================================================================
+   Fluid Scaling System
+   Breakpoints match Webflow's natively — that alignment is the whole point.
+   ========================================================================== */
+
+/* Desktop — Webflow base breakpoint (992px+) */
+:root {
+  --size-unit: 16; /* body font-size in the design — no unit */
+  --size-container-ideal: 1440; /* Figma frame width — set in Phase 0 */
+  --size-container-min: 992px;
+  --size-container-max: 1440px;
+  --size-container: clamp(var(--size-container-min), 100vw, var(--size-container-max));
+  --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+  --container-padding: 5em; /* 80px — (1440 - 1280) / 2 */
+}
+
+/* Tablet — Webflow tablet breakpoint */
+@media screen and (max-width: 991px) {
+  :root {
+    --size-container-ideal: 834;
+    --size-container-min: 768px;
+    --size-container-max: 991px;
+    /* 1em, not 1.5em: the live build uses a fixed 16px inline padding on every
+       section at this tier. --size-font resolves to 16px at this tier's ideal
+       width (834), so 1em lands on exactly 16px. Sections whose live inline
+       padding differs (hero 0, social proof 20, feature stack / testimonials /
+       mobile app 0) carry their own combo instead. */
+    --container-padding: 1em;
+  }
+}
+
+/* Mobile landscape — Webflow mobile landscape breakpoint */
+@media screen and (max-width: 767px) {
+  :root {
+    --size-container-ideal: 550;
+    --size-container-min: 480px;
+    --size-container-max: 767px;
+    --container-padding: 1em;
+  }
+}
+
+/* Mobile portrait — Webflow mobile portrait breakpoint */
+@media screen and (max-width: 479px) {
+  :root {
+    --size-container-ideal: 375; /* Figma mobile frame width */
+    --size-container-min: 320px;
+    --size-container-max: 479px;
+    --container-padding: 1em;
+  }
+}
+
+/* ==========================================================================
+   Design Tokens — extracted from Figma in Phase 0
+   Source: "New Website" (TsrTr1lao0xl2lxLquw8iY), page "0. Homepage".
+   Mirror the colours and fonts as native Webflow Variables in Phase 2 so the
+   client can see and edit them in the Designer. Keep the values identical.
+   Do NOT mirror spacing or font sizes as Webflow variables — they must stay
+   in em, driven by the scaling system above.
+   ========================================================================== */
+
+:root {
+  /* --- Colors: brand ---------------------------------------------------- */
+  --color-primary: #068ff9;            /* Brand Blue 500 / bg-brand-primary */
+  --color-primary-light: #e2f1fc;      /* Brand Blue 100 / bg-brand-secondary */
+  --color-accent: #d3ec8e;             /* Brand Green 500 / bg-tretiary */
+
+  /* --- Colors: backgrounds ---------------------------------------------- */
+  --color-bg-primary: #f9f7f3;         /* Stone 50 — page background */
+  --color-bg-white: #ffffff;
+  --color-bg-dark: #0f1d33;            /* bg-secondary — dark navy bands */
+
+  /* --- Colors: text ----------------------------------------------------- */
+  --color-text-primary: #171717;       /* text-primary (900) */
+  --color-text-secondary: #404040;     /* text-secondary (700) */
+  --color-text-tertiary: #525252;      /* text-tertiary (600) */
+  --color-text-placeholder: #737373;   /* text-placeholder & tooltip */
+  --color-text-white: #ffffff;
+  --color-text-white-secondary: rgba(255, 255, 255, 0.82); /* on-brand */
+
+  /* --- Colors: borders & alpha ------------------------------------------ */
+  --color-border: rgba(0, 0, 0, 0.15); /* border-primary */
+  --color-alpha-white-60: rgba(255, 255, 255, 0.6);
+
+  /* --- Typography — Lora (display) + Inter (body), site custom fonts ----- */
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Font sizes. Display = Lora, Text = Inter. */
+  --font-size-display-2xl: 4.5em;   /* 72px */
+  --font-size-display-lg: 3em;      /* 48px */
+  --font-size-display-md: 2.25em;   /* 36px */
+  --font-size-display-sm: 1.875em;  /* 30px */
+  --font-size-display-xs: 1.5em;    /* 24px */
+  --font-size-display-xxs: 1.25em;  /* 20px */
+  --font-size-text-xl: 1.25em;      /* 20px */
+  --font-size-text-lg: 1.125em;     /* 18px */
+  --font-size-text-md: 1em;         /* 16px */
+  --font-size-text-sm: 0.875em;     /* 14px */
+  --font-size-text-xs: 0.75em;      /* 12px */
+
+  /* Line heights — unitless ratios (Figma line-height / font-size). */
+  --line-height-display-2xl: 1.25;    /* 90/72 */
+  --line-height-display-lg: 1.25;     /* 60/48 */
+  --line-height-display-md: 1.222;    /* 44/36 */
+  --line-height-display-sm: 1.267;    /* 38/30 */
+  --line-height-display-xs: 1.333;    /* 32/24 */
+  --line-height-display-xxs: 1.5;     /* 30/20 */
+  --line-height-text-xl: 1.5;         /* 30/20 */
+  --line-height-text-lg: 1.556;       /* 28/18 */
+  --line-height-text-md: 1.5;         /* 24/16 */
+  --line-height-text-sm: 1.429;       /* 20/14 */
+  --line-height-text-xs: 1.5;         /* 18/12 */
+
+  /* Letter spacing — ALWAYS px, never em. Figma uses -2% on display styles
+     and -1% on text styles; these are those percentages resolved at each
+     size, exactly as the design renders them. */
+  --letter-spacing-display-2xl: -1.44px;
+  --letter-spacing-display-lg: -0.96px;
+  --letter-spacing-display-md: -0.72px;
+  --letter-spacing-display-sm: -0.6px;
+  --letter-spacing-display-xs: -0.48px;
+  --letter-spacing-display-xxs: -0.2px;
+  --letter-spacing-text-xl: -0.2px;
+  --letter-spacing-text-lg: -0.18px;
+  --letter-spacing-text-md: -0.16px;
+  --letter-spacing-text-sm: 0px;
+  --letter-spacing-text-xs: 0px;
+
+  /* --- Spacing scale ---------------------------------------------------- */
+  --spacing-none: 0;
+  --spacing-xxs: 0.125em;  /* 2px */
+  --spacing-xs: 0.25em;    /* 4px */
+  --spacing-sm: 0.375em;   /* 6px */
+  --spacing-md: 0.5em;     /* 8px */
+  --spacing-lg: 0.75em;    /* 12px */
+  --spacing-xl: 1em;       /* 16px */
+  --spacing-2xl: 1.25em;   /* 20px */
+  --spacing-3xl: 1.5em;    /* 24px */
+  --spacing-4xl: 2em;      /* 32px */
+  --spacing-5xl: 2.5em;    /* 40px */
+  --spacing-6xl: 3em;      /* 48px */
+  --spacing-7xl: 4em;      /* 64px */
+  --spacing-8xl: 5em;      /* 80px */
+  --spacing-9xl: 6em;      /* 96px */
+
+  /* --- Width tokens ----------------------------------------------------- */
+  --width-md: 35em;        /* 560px — hero text column */
+  --width-xl: 48em;        /* 768px */
+  --width-3xl: 80em;       /* 1280px — container-max-width-desktop */
+
+  /* --- Border radius ---------------------------------------------------- */
+  --radius-none: 0;
+  --radius-xxs: 0.375em;   /* 6px */
+  --radius-sm: 0.75em;     /* 12px */
+  --radius-md: 1.5em;      /* 24px */
+  --radius-lg: 2em;        /* 32px */
+  --radius-xl: 3em;        /* 48px — hero / section cards */
+  --radius-full: 9999px;   /* pill sentinel — stays px on purpose */
+
+  /* --- Transitions ------------------------------------------------------ */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+}
+
+/* ==========================================================================
+   Base — complements Webflow's own reset, doesn't replace it
+   ========================================================================== */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* The fluid font-size. Everything sized in em scales from here. */
+body {
+  font-family: var(--font-body);
+  font-size: var(--size-font);
+  color: var(--color-text-secondary);
+  /* White, not --color-bg-primary (#f9f7f3). Figma names Stone 50 the "page
+     background", but the live build's body is #ffffff and the sections that
+     want Stone 50 (feature stack, testimonials) set it themselves. Matching
+     live here, per the agreed tiebreak. */
+  background-color: var(--color-bg-white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  margin: 0;
+  overflow-wrap: break-word;
+  /* font-weight is set per heading class — never assume bold. Many designs
+     use Regular 400 for headings. */
+}
+
+p {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+/* ==========================================================================
+   Structural classes — Client-First (chosen in Phase 0)
+   See .claude/rules/naming-framework.md. Phase 2 recreates these as real
+   Webflow classes so they are editable in the Designer; the definitions here
+   are the reference the Designer classes must match.
+   ========================================================================== */
+
+.padding-global {
+  padding-inline: var(--container-padding);
+}
+
+.container-large {
+  width: 100%;
+  max-width: var(--width-3xl); /* 80em = 1280px, the Figma container width */
+  margin-inline: auto;
+}
+
+.container-medium {
+  width: 100%;
+  max-width: 60em;
+  margin-inline: auto;
+}
+
+.container-small {
+  width: 100%;
+  max-width: 44em;
+  margin-inline: auto;
+}
+
+/* Vertical rhythm. Provisional — Phase 3 confirms the real padding per
+   section against Figma and these get corrected if the design disagrees. */
+.padding-section-small {
+  padding-block: var(--spacing-6xl);  /* 48px */
+}
+
+.padding-section-medium {
+  padding-block: var(--spacing-7xl);  /* 64px */
+}
+
+.padding-section-large {
+  padding-block: var(--spacing-9xl);  /* 96px */
+}
+
+/* ==========================================================================
+   Marquee
+   Three sections scroll a track that is wider than its container: Social
+   proof (two logo rows), Feature (headline ticker) and Integrations (22-logo
+   row). Webflow has no native marquee, and @keyframes cannot be expressed in
+   the style panel, so the keyframes live here and the classes reference them.
+
+   Seamless looping requires the track to hold the item set TWICE and the
+   spacing to come from margin-inline-end on each item rather than flex `gap`.
+   With `gap`, the space between the two sets differs from the space inside a
+   set, so translating -50% lands off by half a gap and the loop visibly jumps.
+
+   Speed and direction are NOT specified in the Figma file — get_motion_context
+   returns no timeline for these nodes. The durations below are a convention
+   (roughly 45-50px per second) and are meant to be adjusted.
+   ========================================================================== */
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* The reduced-motion block below stops these outright, which is the correct
+   behaviour — a continuously moving logo wall is exactly what that setting
+   is for. */
+
+/* ==========================================================================
+   Feature accordion — native <details> / <summary>
+   Webflow has no accordion element, and authored IX3 interactions cannot be
+   verified headlessly (a write can succeed and never animate). Native HTML
+   disclosure is keyboard accessible, needs no JavaScript, and the shared
+   `name` attribute gives one-open-at-a-time per card for free.
+
+   The open and closed states differ by more than colour: the open item adds
+   bottom padding and top-aligns its icon, because the body text appears
+   underneath the title. Both icon variants are in the DOM and swapped with
+   display, since an <img> asset cannot be changed from CSS.
+   ========================================================================== */
+
+/* The <details> carries the Webflow class `.feature_item`, which owns the
+   padding, radius, background and the 0.3s colour transition. That class is a
+   flex ROW by design (it was drawn for an icon + text-wrap pair). We use native
+   <details>/<summary> instead, so it is set to `display: block` on the class —
+   otherwise the summary and the body become siblings in a row and the body
+   renders BESIDE the title instead of under it.
+
+   Padding lives on `.feature_item` only. Giving the summary its own padding as
+   well double-counted it and made every item 86px tall against live's 56. */
+
+.feature_item > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Safari and Chrome draw their own triangle; remove it. */
+.feature_item > summary::-webkit-details-marker { display: none; }
+.feature_item > summary::marker { content: ""; }
+
+/* Open: the title sits at the top of the row because the body appears below. */
+.feature_item[open] { background-color: var(--color-primary); }
+.feature_item[open] > summary { align-items: flex-start; }
+
+/* The title carries only `heading-style-h6`. Its colour is state-driven here
+   rather than by a second Webflow class, because the Designer data API applies
+   one standalone class per element — a second one has to be a real combo. */
+.feature_item > summary h4 {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.feature_item[open] > summary h4 {
+  color: var(--color-text-white);
+}
+
+/* Aligns the body under the title: icon 1.5em + the summary's 0.75em gap. */
+.feature_item-body {
+  padding-top: 0.25em;
+  padding-left: 2.25em;
+}
+
+.feature_item .is-icon-open { display: none; }
+.feature_item[open] .is-icon-open { display: block; }
+.feature_item[open] .is-icon-closed { display: none; }
+
+/* ==========================================================================
+   Footer — Ask AI icon hover swap
+   The five AI glyphs are the ONLY designed hover state in the Header or
+   Footer (the Header's "hover" props are undesigned duplicates). Each glyph
+   has distinct hover artwork: base #5F6368 → hover #111827.
+
+   Both images sit in the DOM and are swapped with `display`, exactly as the
+   Feature accordion swaps its icons — an <img> asset cannot be changed from
+   CSS, and Webflow's style panel cannot express a descendant selector.
+
+   The hover artwork stays #111827 rather than the normalised #171717: it is
+   baked into the SVG and counts as artwork, which the palette decision
+   exempts. The contrast delta is 0.19 — imperceptible.
+   ========================================================================== */
+
+.footer_askai-icon .footer_askai-icon-hover { display: none; }
+.footer_askai-icon:hover .footer_askai-icon-hover { display: block; }
+.footer_askai-icon:hover .footer_askai-icon-image { display: none; }
+
+/* ==========================================================================
+   Testimonials — the Senja wall-of-love widget
+
+   The section no longer carries a Webflow Slider. The live build renders the
+   wall of love through Senja's embed (widget 7d72e250-…, `data-mode="shadow"`),
+   and the slider, its two slides, the quote/video cards, the arrows and the
+   Lightbox were removed so the section matches. Everything the slider needed
+   from this file went with it: the 10-line quote clamp, the Slider Mask
+   overflow override, the injected arrow-glyph hiding and the slider-nav
+   hiding. They are recorded in site/LIVE-PARITY.md in case the slider is ever
+   restored.
+
+   Senja renders into a shadow root, so nothing in here can reach its
+   internals — and must not try to. The wrapper only supplies live's
+   `padding-inline: 24px`, which is set on the Webflow class, not here.
+   ========================================================================== */
+
+/* The wall-of-love arrow is exported with stroke="#737373" but the design
+   renders it #171717. brightness(0.2) maps 0x73 -> 0x17 exactly
+   (115 x 0.2 = 23 = 0x17), so this is not an approximation. Scoped to this
+   section on purpose: .button-outline-icon is shared with earlier sections
+   that were built against the un-recoloured asset, and silently changing
+   their arrows from a Testimonials task is not this task's business. Flagged
+   in site/SITE_MAP.md for Phase 4 to settle site-wide. */
+
+.testimonials_wall-link .button-outline-icon {
+  filter: brightness(0.2);
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip-to-content link — visually hidden until focused */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus {
+  position: fixed;
+  top: 0.5em;
+  left: 0.5em;
+  z-index: 9999;
+  width: auto;
+  height: auto;
+  padding: 0.75em 1.5em;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-white);
+  font-size: 1em;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

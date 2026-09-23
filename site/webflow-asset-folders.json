@@ -1,0 +1,604 @@
+{
+ "folders": {
+  "icons": "6aaf8f4574783fd18c68ac18",
+  "logos": "6aaf8f4574783fd18c68ac3a",
+  "hero": "6aaf8f46cd63c1f6edf46da0",
+  "social-proof": "6aaf8f461f7a382f8aa39088",
+  "feature": "6aaf8f461f7a382f8aa390a7",
+  "feature-stack": "6aaf8f468f4ff1f74f20c446",
+  "awards": "6aaf8f46826903546463f2c1",
+  "integrations": "6aaf8f46e5cf1e5b65d3bae1",
+  "use-cases": "6aaf8f46826903546463f2ed",
+  "mobile-app": "6aaf8f4632a809fc824e528f",
+  "compliance": "6aaf8f462ccbfed0e9ad3692",
+  "use-case-stats": "6aaf8f477b6168269364f999",
+  "testimonials": "6aaf8f47cb7df56be71934a4",
+  "footer": "6aaf8f478f4ff1f74f20c4e8"
+ },
+ "mapping": {
+  "awards-badge-g2-best-meets-requirements-mid-market-winter-2026.png": {
+   "folder": "awards",
+   "folder_id": "6aaf8f46826903546463f2c1"
+  },
+  "awards-badge-g2-grid-leader-mid-market-spring-2025.png": {
+   "folder": "awards",
+   "folder_id": "6aaf8f46826903546463f2c1"
+  },
+  "awards-badge-g2-high-performer-small-business-fall-2025.png": {
+   "folder": "awards",
+   "folder_id": "6aaf8f46826903546463f2c1"
+  },
+  "awards-badge-g2-leader-canada-winter-2025.png": {
+   "folder": "awards",
+   "folder_id": "6aaf8f46826903546463f2c1"
+  },
+  "awards-badge-g2-leader-winter-2025.png": {
+   "folder": "awards",
+   "folder_id": "6aaf8f46826903546463f2c1"
+  },
+  "awards-badge-g2-momentum-leader-spring-2025.png": {
+   "folder": "awards",
+   "folder_id": "6aaf8f46826903546463f2c1"
+  },
+  "awards-spark-left.jpg": {
+   "folder": "awards",
+   "folder_id": "6aaf8f46826903546463f2c1"
+  },
+  "awards-spark-right.jpg": {
+   "folder": "awards",
+   "folder_id": "6aaf8f46826903546463f2c1"
+  },
+  "compliance-badge-hipaa.png": {
+   "folder": "compliance",
+   "folder_id": "6aaf8f462ccbfed0e9ad3692"
+  },
+  "compliance-badge-soc2.png": {
+   "folder": "compliance",
+   "folder_id": "6aaf8f462ccbfed0e9ad3692"
+  },
+  "compliance-badge-tcpa.png": {
+   "folder": "compliance",
+   "folder_id": "6aaf8f462ccbfed0e9ad3692"
+  },
+  "feature-card-1-image-shared-inbox.png": {
+   "folder": "feature",
+   "folder_id": "6aaf8f461f7a382f8aa390a7"
+  },
+  "feature-card-2-image-calling.png": {
+   "folder": "feature",
+   "folder_id": "6aaf8f461f7a382f8aa390a7"
+  },
+  "feature-card-3-image-workflows.png": {
+   "folder": "feature",
+   "folder_id": "6aaf8f461f7a382f8aa390a7"
+  },
+  "feature-stack-card-1-media.png": {
+   "folder": "feature-stack",
+   "folder_id": "6aaf8f468f4ff1f74f20c446"
+  },
+  "feature-stack-card-2-media.png": {
+   "folder": "feature-stack",
+   "folder_id": "6aaf8f468f4ff1f74f20c446"
+  },
+  "feature-stack-card-3-media.png": {
+   "folder": "feature-stack",
+   "folder_id": "6aaf8f468f4ff1f74f20c446"
+  },
+  "feature-stack-card-image-texting.png": {
+   "folder": "feature-stack",
+   "folder_id": "6aaf8f468f4ff1f74f20c446"
+  },
+  "feature-stack-decor-grabber-mask.svg": {
+   "folder": "feature-stack",
+   "folder_id": "6aaf8f468f4ff1f74f20c446"
+  },
+  "feature-stack-decor-grabber.png": {
+   "folder": "feature-stack",
+   "folder_id": "6aaf8f468f4ff1f74f20c446"
+  },
+  "footer-askai-chatgpt-hover.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-chatgpt.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-claude-hover.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-claude.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-gemini-hover.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-gemini.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-grok-hover.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-grok.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-perplexity-hover.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-askai-perplexity.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-badge-appstore.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-badge-googleplay.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-social-facebook.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-social-instagram.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-social-linkedin.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-social-x.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "footer-social-youtube.svg": {
+   "folder": "footer",
+   "folder_id": "6aaf8f478f4ff1f74f20c4e8"
+  },
+  "hero-background.png": {
+   "folder": "hero",
+   "folder_id": "6aaf8f46cd63c1f6edf46da0"
+  },
+  "hero-illustration.png": {
+   "folder": "hero",
+   "folder_id": "6aaf8f46cd63c1f6edf46da0"
+  },
+  "icon-arrow-narrow-right-navy.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-arrow-narrow-right-white.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-arrow-narrow-right.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-arrow-right.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-carousel-next.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-carousel-prev.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-chevron-down.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-chevron-right.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-clock-check-dark.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-clock-check-white.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-g2-logo.png": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-mail.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-play-button.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-star-blue.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-star-gray.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-star-partial.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "icon-star.svg": {
+   "folder": "icons",
+   "folder_id": "6aaf8f4574783fd18c68ac18"
+  },
+  "integrations-card-hubspot-logo.png": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-card-hubspot-media.png": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-card-salesforce-logo.png": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-card-salesforce-media.png": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-activecampaign.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-aircall.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-attio.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-calendly.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-close.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-front.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-hubspot.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-insightly.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-integrately.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-intercom.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-keap.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-keragon.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-make.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-microsoft-dynamics-365.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-n8n.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-outreach.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-pipedrive.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-salesforce.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-slack.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-twilio.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-zapier.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "integrations-logo-zoho.svg": {
+   "folder": "integrations",
+   "folder_id": "6aaf8f46e5cf1e5b65d3bae1"
+  },
+  "logo-blackberry-estates.png": {
+   "folder": "logos",
+   "folder_id": "6aaf8f4574783fd18c68ac3a"
+  },
+  "logo-salesmsg.svg": {
+   "folder": "logos",
+   "folder_id": "6aaf8f4574783fd18c68ac3a"
+  },
+  "mobile-app-badge-app-store.svg": {
+   "folder": "mobile-app",
+   "folder_id": "6aaf8f4632a809fc824e528f"
+  },
+  "mobile-app-badge-google-play.svg": {
+   "folder": "mobile-app",
+   "folder_id": "6aaf8f4632a809fc824e528f"
+  },
+  "mobile-app-screenshot.png": {
+   "folder": "mobile-app",
+   "folder_id": "6aaf8f4632a809fc824e528f"
+  },
+  "social-proof-gradient-mask.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-ace-hardware.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-adtc.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-arcis-golf-mark.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-arcis-golf-wordmark.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-arcis-golf.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-clickfunnels.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-comcast.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-crossfit.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-duxxbak.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-envoy-mortgage-mask.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-envoy-mortgage.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-f-and-f.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-grant-cardone.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-grantme.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-indinero.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-kidstrong.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-martell-group.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-mortgage-solutions-financial.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-raw.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-remax-mark.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-remax-wordmark.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-remax.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-samcart.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-semper-laser.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-shine.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-sola-salons-mask.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-sola-salons.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-terminix.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-uline.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-university-of-cincinnati.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-clip.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-01-mask.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-01.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-02-mask.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-02.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-03.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-04.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-05.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-06.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-07.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-08.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege-part-09.svg": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "social-proof-logo-zollege.png": {
+   "folder": "social-proof",
+   "folder_id": "6aaf8f461f7a382f8aa39088"
+  },
+  "testimonials-avatar-terry-chenowith.png": {
+   "folder": "testimonials",
+   "folder_id": "6aaf8f47cb7df56be71934a4"
+  },
+  "testimonials-logo-capterra.png": {
+   "folder": "testimonials",
+   "folder_id": "6aaf8f47cb7df56be71934a4"
+  },
+  "testimonials-video-still-terry-chenowith.jpg": {
+   "folder": "testimonials",
+   "folder_id": "6aaf8f47cb7df56be71934a4"
+  },
+  "use-case-stats-avatar-chris-bettis.png": {
+   "folder": "use-case-stats",
+   "folder_id": "6aaf8f477b6168269364f999"
+  },
+  "use-case-stats-avatar-kellie-barker.png": {
+   "folder": "use-case-stats",
+   "folder_id": "6aaf8f477b6168269364f999"
+  },
+  "use-case-stats-logo-adtc.svg": {
+   "folder": "use-case-stats",
+   "folder_id": "6aaf8f477b6168269364f999"
+  },
+  "use-case-stats-logo-duxxbak.png": {
+   "folder": "use-case-stats",
+   "folder_id": "6aaf8f477b6168269364f999"
+  },
+  "use-case-stats-logo-envoy-mortgage.svg": {
+   "folder": "use-case-stats",
+   "folder_id": "6aaf8f477b6168269364f999"
+  },
+  "use-case-stats-logo-samcart.png": {
+   "folder": "use-case-stats",
+   "folder_id": "6aaf8f477b6168269364f999"
+  },
+  "use-case-stats-logo-sundance-lending.svg": {
+   "folder": "use-case-stats",
+   "folder_id": "6aaf8f477b6168269364f999"
+  },
+  "use-cases-card-customer-success-illustration.png": {
+   "folder": "use-cases",
+   "folder_id": "6aaf8f46826903546463f2ed"
+  },
+  "use-cases-card-marketing-illustration.png": {
+   "folder": "use-cases",
+   "folder_id": "6aaf8f46826903546463f2ed"
+  },
+  "use-cases-card-sales-media.png": {
+   "folder": "use-cases",
+   "folder_id": "6aaf8f46826903546463f2ed"
+  },
+  "use-cases-case-study-logo-envoy-mortgage.svg": {
+   "folder": "use-cases",
+   "folder_id": "6aaf8f46826903546463f2ed"
+  },
+  "use-cases-media-backdrop.svg": {
+   "folder": "use-cases",
+   "folder_id": "6aaf8f46826903546463f2ed"
+  }
+ }
+}

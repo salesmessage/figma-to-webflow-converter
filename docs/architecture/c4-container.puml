@@ -1,0 +1,75 @@
+@startuml c4-container
+' ============================================================
+' C4 Level 2 — Containers
+' Figma → Webflow Converter
+'
+' Two boundaries are drawn: the repo/runtime that does the work,
+' and the Webflow site it deploys into. Showing the target's
+' containers is what makes the "reuse, don't reproduce" rule
+' legible — the registers on the left map 1:1 to the objects on
+' the right.
+' ============================================================
+!include <C4/C4_Container>
+
+LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+
+title C4 Level 2 — Containers: Figma → Webflow Converter
+
+Person(builder, "Site builder", "Runs the pipeline; owns every decision.")
+
+System_Boundary(converter, "Figma → Webflow Converter (this repo)") {
+  Container(cli, "Claude Code CLI + agents", "Claude Code", "The only executable. Loads the pipeline rules, dispatches the seven subagents, and calls the MCP servers. Nothing here is compiled.")
+  ContainerDb(pipeline, "Pipeline definition", ".claude/ — markdown + YAML", "6 phase rules (lazy-loaded by path), 4 commands, 7 agent definitions, 12 SEO skills, settings. The program, written as prose.")
+  ContainerDb(brand, "Brand library", "brand/ — committed", "Reusable across pages AND projects: logos, icons, customer/integration logos. Four registers map each item to the Webflow ID it already exists under: ASSETS, COMPONENTS, TOKENS, FONTS.")
+  ContainerDb(site, "Site record", "site/ — committed", "Durable record of THIS site: PROJECT_BRIEF (tokens), SITE_MAP (every Webflow ID), IMAGE_MANIFEST, FIGMA-DELTAS (the delta register), LIVE-PARITY, asset-folder IDs, shared Header/Footer specs.")
+  ContainerDb(page, "Page workspace", "project/ + assets/ + .work/ — git-ignored", "Per-page and disposable: one page's section specs, staged Figma images, scratch downloads and generated payloads.")
+  ContainerDb(src, "Webflow-bound code", "src/ — committed", "The only code that RUNS inside Webflow but is authored here: global.css (fluid scaling + tokens) and page-footer-code.html (behaviour).")
+  ContainerDb(reference, "Reference snapshot", "reference/ — committed", "Frozen copy of the page this build was matched against. Committed because that A/B variant will not exist later, and ~20 delta rows cite it.")
+  ContainerDb(docs, "Documentation", "docs/", "DESIGN-SYSTEM.md (units, layers, layout model) and these C4 diagrams.")
+}
+
+System_Boundary(wf, "Webflow site") {
+  Container(wf_globalstyles, "Global Styles component", "HTML Embed", "Holds global.css verbatim, wrapped in <style>. First child of <body> on every page, exactly one instance. Without it every em on the site is wrong.")
+  Container(wf_footer, "Page footer custom code", "JS in the page footer", "Holds page-footer-code.html: GSAP card stack, two class-swap interactions, one documented API workaround.")
+  Container(wf_components, "Header / Footer components", "Webflow components", "Instanced on every page. Per-page differences are props or variants, never a detached copy.")
+  Container(wf_pages, "Pages", "Webflow element tree + classes", "Sections built from Figma data, Client-First naming, all four breakpoints.")
+  ContainerDb(wf_assets, "Assets, Variables, Fonts", "Webflow site data", "174 assets in 14 folders, 22 variables, 5 uploaded font faces.")
+}
+
+System_Ext(figma, "Figma", "Design source of truth")
+System_Ext(chrome, "Chrome", "QA measurement")
+System_Ext(google, "Google APIs", "Indexing / Search Console")
+
+Rel(builder, cli, "Runs /build, /qa, /publish", "CLI")
+Rel(cli, pipeline, "Loads rules, commands, agents")
+Rel(cli, figma, "Reads design context, screenshots, exports", "Figma MCP")
+Rel(cli, chrome, "Measures the published page", "Chrome MCP")
+Rel(cli, google, "Submits URLs, reads rankings", "HTTPS")
+
+Rel(cli, brand, "Checks BEFORE creating anything; appends new IDs", "read/write")
+Rel(cli, site, "Appends per page: IDs, classes, deltas", "read/write")
+Rel(cli, page, "Writes specs, stages images, scratch", "read/write")
+Rel(cli, src, "Authors; then pushes verbatim", "read/write")
+Rel(cli, reference, "Reads only — never edits", "read")
+
+Rel(cli, wf_globalstyles, "Pushes global.css", "Webflow MCP")
+Rel(cli, wf_footer, "Pushes footer code", "Webflow MCP")
+Rel(cli, wf_components, "Inserts INSTANCES (never rebuilds)", "Webflow MCP")
+Rel(cli, wf_pages, "Builds sections, sets styles per breakpoint", "Webflow MCP")
+Rel(cli, wf_assets, "Uploads once; reuses IDs thereafter", "Webflow MCP")
+
+Rel(src, wf_globalstyles, "Source of truth for", "must stay byte-identical")
+Rel(brand, wf_assets, "Registers the IDs of", "lookup, not upload")
+Rel(brand, wf_components, "Registers", "lookup, not rebuild")
+
+note as N1
+  **Drift contract.** src/ and the two Webflow
+  containers it feeds must stay byte-identical.
+  After a push, fetch the published page and diff
+  its <style> block against src/global.css.
+  A Designer edit must be mirrored back or the
+  next push overwrites it. /qa checks this.
+end note
+
+@enduml

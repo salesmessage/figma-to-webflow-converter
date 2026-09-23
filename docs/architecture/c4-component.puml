@@ -1,0 +1,88 @@
+@startuml c4-component
+' ============================================================
+' C4 Level 3 — Components
+' Zoom into "Claude Code CLI + agents": the six phases, the
+' subagents that run them, and which records each reads/writes.
+'
+' The register reads are the important edges: Phase 2 and 3 check
+' brand/ before creating anything, and Phase 4 reads the delta
+' register before correcting anything. Omit either and the
+' pipeline duplicates work or reverts decisions.
+' ============================================================
+!include <C4/C4_Component>
+
+LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
+
+title C4 Level 3 — Components: the six-phase pipeline
+
+Person(builder, "Site builder")
+
+Container_Boundary(cli, "Claude Code CLI + agents") {
+  Component(cmd, "/build orchestrator", "Command", "Runs phases 0-5 in order. /brief, /qa and /publish enter at a single phase.")
+
+  Component(p0, "Phase 0 — Brief", "Rule: phase-0-brief.md", "Reads the first Figma page. Extracts colours, typography, spacing, frame width. Sets up the token system before a single class exists.")
+  Component(p1, "Phase 1 — Analyze", "Agent: figma-analyzer", "Maps every page and section with node IDs. Checks brand/ASSETS.md first, then downloads only what is missing.")
+  Component(p2, "Phase 2 — Foundation", "Rule: phase-2-webflow-foundation.md", "Inventories what exists, then installs only the gaps: Global Styles component, variables, fonts, structural classes, pages, asset upload.")
+  Component(p3, "Phase 3 — Build", "Agent: webflow-builder", "One invocation per section. Builds from live Figma data, all four breakpoints as it goes. Instances existing components.")
+  Component(p4, "Phase 4 — QA", "Agent: webflow-qa", "Compares each section against Figma and corrects. Reads the delta register FIRST so it cannot revert a decision.")
+  Component(p5, "Phase 5 — SEO & publish", "Agent: seo-auditor", "Meta, OG, schema, alt text, contrast, focus states. Publishes only with explicit approval, naming the exact domains.")
+
+  Component(mcpref, "Webflow MCP reference", "Always-loaded rule", "Capability map, hard rules, rate-limit strategy. Tool names changed in v2.0, so verify against the connected server rather than assuming.")
+  Component(naming, "Naming framework", "Always-loaded rule", "The Client-First naming convention. Never changes mid-build.")
+}
+
+ContainerDb(brand, "brand/", "Registers", "ASSETS · COMPONENTS · TOKENS · FONTS")
+ContainerDb(site, "site/", "Site record", "PROJECT_BRIEF · SITE_MAP · IMAGE_MANIFEST · FIGMA-DELTAS · LIVE-PARITY")
+ContainerDb(page, "project/ + assets/", "Page workspace", "Section specs · staged images")
+ContainerDb(src, "src/", "Webflow-bound code", "global.css · page-footer-code.html")
+
+System_Ext(figma, "Figma", "Design source of truth")
+System_Ext(webflow, "Webflow", "Data API")
+
+Rel(builder, cmd, "Runs with a Figma URL")
+Rel(cmd, p0, "1")
+Rel(cmd, p1, "2")
+Rel(cmd, p2, "3")
+Rel(cmd, p3, "4")
+Rel(cmd, p4, "5")
+Rel(cmd, p5, "6")
+
+Rel(p5, builder, "ASKS: publish to which domains?", "blocking")
+
+Rel(p0, figma, "Reads page 1 tokens", "Figma MCP")
+Rel(p1, figma, "get_metadata, get_design_context, get_screenshot", "Figma MCP")
+Rel(p3, figma, "Per section: design context + screenshot", "Figma MCP")
+Rel(p4, figma, "Re-reads to compare", "Figma MCP")
+
+Rel(p0, src, "Writes tokens + scaling system")
+Rel(p0, site, "Writes PROJECT_BRIEF")
+Rel(p1, site, "Writes SITE_MAP, IMAGE_MANIFEST")
+Rel(p1, page, "Stages page-content images")
+Rel(p1, brand, "Checks before exporting", "reuse")
+Rel(p2, brand, "Inventories: components, assets, variables, fonts", "reuse")
+Rel(p3, brand, "Instances components; reuses asset IDs", "reuse")
+Rel(p3, page, "Reads the section spec")
+Rel(p3, src, "Adds behaviour blocks")
+Rel(p4, site, "Reads FIGMA-DELTAS before correcting", "critical")
+Rel(p4, src, "Verifies no drift from published")
+
+Rel(p2, webflow, "Creates foundation", "Data API")
+Rel(p3, webflow, "Builds sections", "Data API")
+Rel(p4, webflow, "Applies corrections", "Data API")
+Rel(p5, webflow, "Publishes", "Data API")
+
+Rel(p2, mcpref, "Consults")
+Rel(p3, mcpref, "Consults")
+Rel(p3, naming, "Applies")
+
+note as N1
+  **Why the register edges matter.**
+  Remove Phase 4's read of FIGMA-DELTAS and QA
+  "corrects" ~44 deliberate decisions back into
+  the design's own bugs. Remove Phase 2/3's read
+  of brand/ and the build re-uploads assets and
+  rebuilds components that already exist.
+end note
+
+@enduml

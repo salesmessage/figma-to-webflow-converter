@@ -1,0 +1,40 @@
+%% C4 Level 1 — System Context: Figma → Webflow Converter
+%% Mermaid's C4 support is experimental: it renders the right boxes and
+%% edges but does not honour layout hints well. The .puml twin is the
+%% better print artifact; this one is for inline/web viewing.
+C4Context
+  title C4 Level 1 — System Context: Figma → Webflow Converter
+
+  Person(builder, "Site builder", "Designer/developer who runs the pipeline from the Claude Code CLI. Makes every judgment call: naming framework, parity tie-breaks, publish approval.")
+  Person(reviewer, "Client / reviewer", "Approves the staging build before production.")
+  Person(visitor, "Site visitor", "Reads the published marketing site.")
+
+  System(converter, "Figma → Webflow Converter", "A six-phase Claude Code pipeline that turns a Figma design into a live Webflow site. No framework, no build step. Owns the brand library, the site record, and the code pushed into Webflow.")
+
+  Enterprise_Boundary(b_build, "Build time") {
+    System_Ext(figma, "Figma", "Design source of truth: frames, tokens, component docs, image exports.")
+    System_Ext(webflow, "Webflow", "Designer + Data API. Where the site is built: elements, classes, components, variables, fonts, assets, pages.")
+    System_Ext(chrome, "Chrome", "Driven for QA measurement: computed styles and geometry of the published page.")
+    System_Ext(google, "Google Search Console / Indexing API", "Phase 5: pre-migration rankings snapshot, and URL submission after publish.")
+  }
+
+  Enterprise_Boundary(b_run, "Runtime") {
+    System_Ext(published, "Published site", "Webflow hosting. Staging on *.webflow.io, plus the custom domain.")
+    System_Ext(senja, "Senja", "Third-party reviews widget, loaded by the visitor's browser.")
+    System_Ext(cdn, "cdnjs", "Serves GSAP 3.12.5 + ScrollTrigger to the published page.")
+  }
+
+  Rel(builder, converter, "Runs /build, /qa, /publish; answers the decisions", "Claude Code CLI")
+
+  Rel(converter, figma, "Reads frames, tokens, screenshots; downloads image exports", "Figma MCP")
+  Rel(converter, webflow, "Creates elements, classes, components, variables, fonts; uploads assets; publishes", "Webflow MCP (Data API)")
+  Rel(converter, chrome, "Measures the published page", "Chrome MCP")
+  Rel(converter, google, "Submits URLs; reads rankings", "HTTPS")
+
+  Rel(webflow, published, "Publishes to")
+  Rel(reviewer, published, "Reviews the staging build")
+  Rel(visitor, published, "Reads")
+  Rel(published, senja, "Loads the reviews wall", "HTTPS")
+  Rel(published, cdn, "Loads GSAP + ScrollTrigger", "HTTPS")
+
+  UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
